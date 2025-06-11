@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sugar Nails - Agendar Cita</title>
+  <style>
+    :root {
+      --rosa-pastel: #fce3f0;
+      --rosa-medio: #f9c7db;
+      --rosa-profundo: #e88eb4;
+      --lavanda-suave: #e8d8f6;
+      --blanco: #ffffff;
+    }
+
+    html, body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--rosa-pastel);
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: var(--rosa-pastel);
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    .logo img {
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #4f4440;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      padding: 120px 60px 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .hero-text {
+      max-width: 600px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      color: #4f4440;
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: #6e6e6e;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: 140px 140px;
+      grid-template-rows: 140px 140px;
+      grid-template-areas:
+        "img1 img2"
+        "img3 img4";
+      gap: 15px;
+    }
+
+    .image-grid img {
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      object-fit: cover;
+    }
+
+    .img1 { grid-area: img1; }
+    .img2 { grid-area: img2; }
+    .img3 { grid-area: img3; }
+    .img4 { grid-area: img4; }
+
+    .servicios {
+      background-color: white;
+      padding: 60px 30px;
+      text-align: center;
+    }
+
+    .servicios h2 {
+      font-size: 36px;
+      color: #4f4440;
+      margin-bottom: 40px;
+    }
+
+    .servicios-grid {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .servicios-grid .card {
+      width: 250px;
+      height: 320px;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .servicios-grid .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .ultimos-trabajos {
+      background-color: var(--lavanda-suave);
+      padding: 60px 30px;
+      text-align: center;
+    }
+
+    .ultimos-trabajos h2 {
+      font-size: 36px;
+      color: #4f4440;
+      margin-bottom: 30px;
+    }
+
+    .carousel-wrapper {
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 20px;
+      animation: scrollCarousel 40s linear infinite;
+      width: max-content;
+    }
+
+    .carousel-track img {
+      width: 160px;
+      height: 240px;
+      border-radius: 16px;
+      object-fit: cover;
+    }
+
+    @keyframes scrollCarousel {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .calendar-section {
+      background-color: var(--rosa-pastel);
+      color: #4f4440;
+      padding: 60px 30px;
+      display: flex;
+      gap: 50px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .calendar-box {
+      background-color: var(--rosa-medio);
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+    }
+
+    .calendar-box h3 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+      gap: 5px;
+    }
+
+    .calendar div {
+      padding: 8px;
+      background-color: var(--rosa-profundo);
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--blanco);
+    }
+
+    .calendar .header {
+      background-color: transparent;
+      font-weight: bold;
+      color: #4f4440;
+      cursor: default;
+    }
+
+    .calendar .selected {
+      background-color: var(--blanco);
+      color: #e88eb4;
+    }
+
+    .event-info {
+      background-color: var(--rosa-medio);
+      color: #4f4440;
+      border-radius: 10px;
+      padding: 20px;
+      min-width: 300px;
+    }
+
+    .event-info h4 {
+      margin-top: 0;
+    }
+
+    .event-info p {
+      font-size: 14px;
+    }
+
+    .event-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: 1px solid #4f4440;
+      background-color: transparent;
+      color: #4f4440;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="logo.jpg" alt="Logo Sugar Nails" />
+    </div>
+    <nav>
+      <a href="#ubicacion">Ubicación</a>
+      <a href="#login">Iniciar sesión</a>
+      <a href="#registro">Registrarse</a>
+      <a href="#redes">Redes sociales</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Bienvenida a tu espacio de belleza</h1>
+      <p>Reserva tu cita y disfruta de una experiencia personalizada para consentir tus uñas.</p>
+    </div>
+    <div class="image-grid" style="grid-template-columns: 140px 140px 140px; grid-template-rows: 140px 140px;">
+  <img src="img1.jpg" class="img1">
+  <img src="img2.jpg" class="img2">
+  <img src="img5.jpg" class="img5">
+  <img src="img3.jpg" class="img3">
+  <img src="img4.jpg" class="img4">
+  <img src="img6.jpg" class="img6">
+</div>
+
+  </section>
+
+  <section class="servicios">
+  <h2>Nuestros servicios</h2>
+  <div class="servicios-grid">
+    <div class="card">
+      <img src="servicio1.jpg" />
+      <div class="overlay">Pestañas</div>
+    </div>
+    <div class="card">
+      <img src="servicio2.jpg" />
+      <div class="overlay">Uñas</div>
+    </div>
+    <div class="card">
+      <img src="servicio3.jpg" />
+      <div class="overlay">Cejas</div>
+    </div>
+  </div>
+</section>
+
+<style>
+.card {
+  position: relative;
+  width: 250px;
+  height: 320px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .overlay {
+  opacity: 1;
+}
+
+
+</style>
+
+  <section class="ultimos-trabajos">
+    <h2>Nuestros últimos trabajos</h2>
+    <a href="https://www.instagram.com/sugar.nails.mx/" target="_blank">
+      <div class="carousel-wrapper">
+        <div class="carousel-track">
+          <img src="trabajo1.jpg">
+          <img src="trabajo2.jpg">
+          <img src="trabajo3.jpg">
+          <img src="trabajo4.jpg">
+          <img src="trabajo5.jpg">
+          <img src="trabajo6.jpg">
+          <img src="trabajo7.jpg">
+          <img src="trabajo8.jpg">
+        </div>
+      </div>
+    </a>
+  </section>
+
+<section class="calendar-section">
+  <div class="calendar-box">
+    <h3 id="monthLabel">Junio 2025</h3>
+    <div class="calendar" id="calendarGrid"></div>
+    <a href="#agendar" class="event-button">AGENDA YA</a>
+  </div>
+</section>
+
+<style>
+  .calendar-section {
+    background-color: var(--rosa-pastel);
+    color: #4f4440;
+    padding: 60px 30px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .calendar-box {
+    background-color: var(--rosa-medio);
+    padding: 20px;
+    border-radius: 10px;
+    width: 360px;
+  }
+
+  .calendar-box h3 {
+    text-align: center;
+    margin-top: 0;
+  }
+
+  .calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    gap: 5px;
+  }
+
+  .calendar div {
+    padding: 14px 0;
+    background-color: var(--rosa-profundo);
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--blanco);
+    position: relative;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .calendar .header {
+    background-color: transparent;
+    font-weight: bold;
+    color: #4f4440;
+    cursor: default;
+    padding: 10px 0;
+  }
+
+  .calendar .past {
+    position: relative;
+    color: white;
+  }
+
+  .calendar .past::before {
+    content: "✕";
+    color: white;
+    font-size: 28px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 6px;
+  }
+
+  .event-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: 1px solid #4f4440;
+    background-color: transparent;
+    color: #4f4440;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+</style>
+
+<script>
+  const calendarGrid = document.getElementById("calendarGrid");
+  const monthLabel = document.getElementById("monthLabel");
+
+  const months = ["Junio 2025", "Julio 2025", "Agosto 2025"];
+  const daysOfWeek = ["Lun", "Mar", "Mier", "Jue", "Vie", "Sab", "Dom"];
+
+  function generateCalendar(monthIndex) {
+    calendarGrid.innerHTML = "";
+    const year = 2025;
+    const month = 5 + monthIndex;
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const today = new Date();
+
+    monthLabel.textContent = months[monthIndex];
+
+    daysOfWeek.forEach(day => {
+      const div = document.createElement("div");
+      div.textContent = day;
+      div.className = "header";
+      calendarGrid.appendChild(div);
+    });
+
+    for (let i = 0; i < (firstDay.getDay() + 6) % 7; i++) {
+      const empty = document.createElement("div");
+      calendarGrid.appendChild(empty);
+    }
+
+    for (let day = 1; day <= lastDay.getDate(); day++) {
+      const div = document.createElement("div");
+      div.textContent = day;
+      const date = new Date(year, month, day);
+      if (date < today) {
+        div.classList.add("past");
+      }
+      div.addEventListener("click", () => {
+        window.location.href = "#agendar";
+      });
+      calendarGrid.appendChild(div);
+    }
+  }
+
+  generateCalendar(0);
+</script>
+
+
+
+
+<footer style="background-color: #f9c7db; color: #4f4440; padding: 40px 20px; display: flex; flex-wrap: wrap; justify-content: space-around;">
+  <div style="flex: 1; min-width: 200px; text-align: center;">
+    <img src="logo2.jpg" alt="Logo Sugar Nails" style="width: 100px; border-radius: 50%;" />
+    <p>Síguenos en</p>
+    <div style="display: flex; justify-content: center; gap: 10px;">
+      <a href="https://www.instagram.com/sugar.nails.mx/" target="_blank">
+        <img src="instagram-icon.png" alt="Instagram" style="width: 24px;">
+      </a>
+      <a href="https://www.facebook.com" target="_blank">
+        <img src="facebook-icon.png" alt="Facebook" style="width: 24px;">
+      </a>
+      <a href="https://chat.whatsapp.com/FTixaN2FGrkK1BrJaku68P" target="_blank">
+        <img src="whatsapp-icon.png" alt="WhatsApp" style="width: 24px;">
+      </a>
+    </div>
+  </div>
+
+  <div style="flex: 1; min-width: 200px;">
+    <h4>Datos</h4>
+    <p>Samanta Corine</p>
+    <p>contacto@sugarnails.mx</p>
+    <p>+52 55 1234 5678</p>
+  </div>
+
+  <div style="flex: 1; min-width: 200px;">
+    <h4>Nos encontramos en</h4>
+    <a href="https://www.google.com/maps/place/Tu+Dirección" target="_blank" style="color: #4f4440; text-decoration: underline;">
+      Calle Rosa #123, CDMX, México
+    </a>
+  </div>
+
+  <div style="flex: 1; min-width: 200px;">
+    <h4>Información</h4>
+    <ul style="list-style: none; padding: 0;">
+      <li><a href="#" style="color: #4f4440; text-decoration: none;">Acerca de nosotros</a></li>
+      <li><a href="#" style="color: #4f4440; text-decoration: none;">Política de privacidad</a></li>
+      <li><a href="#" style="color: #4f4440; text-decoration: none;">Protección de datos</a></li>
+      <li><a href="#" style="color: #4f4440; text-decoration: none;">Condiciones de uso</a></li>
+      <li><a href="#" style="color: #4f4440; text-decoration: none;">Con mucho amor UwU</a></li>
+
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>
+
