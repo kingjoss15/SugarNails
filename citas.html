@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -229,14 +230,45 @@ button.loading::after {
   text-align: center;
   font-size: 14px;
 }
+.citas-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 60px;            /* ajusta a la altura de tu header */
+}
+
+/* Flecha absoluta a la izquierda */
+.back-link {
+  position: absolute;
+  left: 16px;              /* espacio desde el borde */
+  font-size: 32px;
+  line-height: 1;
+  text-decoration: none;
+  color: #4f4440;
+  transition: color .2s;
+}
+
+/* Título centrado */
+.citas-title {
+  margin: 0 auto;          /* esto centra horizontalmente */
+  font-size: 30px;         
+  color: var(--texto);
+  text-align: center;      /* por si ocupa varias líneas */
+}
+
 
   </style>
 </head>
 <body>
 
   <div class="container">
-    <h2>Agenda tu Cita</h2>
-    <div id="feedback">
+  <header class="citas-header">
+  <a href="index.html" class="back-link" title="Volver al inicio">
+    ←
+  </a>
+  <h2 class="citas-title">Agenda tu Cita</h2>
+</header>
+      <div id="feedback">
       <svg viewBox="0 0 16 16">
         <path d="M13.485 1.929a.75.75 0 0 1 0 1.06l-8.5 
                  8.5a.75.75 0 0 1-1.06 0l-4-4a.75.75 0 
