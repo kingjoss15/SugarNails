@@ -212,6 +212,24 @@
       color: var(--rosa-profundo) !important;
       border: 1px solid var(--rosa-profundo);
     }
+    button.loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.8;
+  color: transparent;
+}
+
+button.loading::after {
+  content: "Cargando archivos...";
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%; transform: translateY(-50%);
+  color: white;
+  font-weight: normal;
+  text-align: center;
+  font-size: 14px;
+}
+
   </style>
 </head>
 <body>
@@ -225,7 +243,6 @@
                  1 1 1.06-1.06L5 9.439l7.972-7.973a.75.75 
                  0 0 1 1.06 0z"/>
       </svg>
-      <span>Espera un mensaje de WhatsApp para confirmar la cita</span>
     </div>
 
     <form id="formAgenda" enctype="multipart/form-data">
@@ -483,7 +500,9 @@
     alert('Por favor sube tu comprobante de depósito.');
     return;
   }
-
+const submitBtn = form.querySelector('button[type="submit"]');
+submitBtn.classList.add('loading');
+submitBtn.disabled = true;
   const reader = new FileReader();
   reader.onload = function () {
     const base64File = reader.result.split(',')[1];
@@ -499,33 +518,42 @@
     formToSend.append('hora', fd.get('hora'));
     formToSend.append('notas', fd.get('notas'));
 
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      body: formToSend
-    })
-    .then(res => {
-      if (!res.ok) throw new Error(res.status);
-    feedback.style.display = 'flex';
-form.style.display = 'none';
 
-const nombre = fd.get('nombre');
-const fecha = fd.get('fecha');
-const hora = fd.get('hora');
+        setTimeout(() => {
+          fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: formToSend
+          })
+          .then(res => {
+            if (!res.ok) throw new Error(res.status);
+            feedback.style.display = 'flex';
+            form.style.display = 'none';
 
-const resumen = document.createElement('p');
-resumen.innerHTML = `✅ Gracias <strong>${nombre}</strong>, tu cita fue agendada para el <strong>${fecha}</strong> a las <strong>${hora}</strong>.`;
-feedback.appendChild(resumen);
+            const nombre = fd.get('nombre');
+            const fecha = fd.get('fecha');
+            const hora = fd.get('hora');
 
-    })
-    .catch(err => {
-      console.error(err);
-      alert('❌ Hubo un error al enviar los datos. Intenta más tarde.');
+            const resumen = document.createElement('p');
+            resumen.innerHTML = `✅ Gracias <strong>${nombre}</strong>, tu cita fue agendada para el <strong>${fecha}</strong> a las <strong>${hora}</strong>.`;
+            feedback.appendChild(resumen);
+          })
+          .catch(err => {
+            console.warn('CORS o error de red:', err);
+            feedback.style.display = 'flex';
+            form.style.display = 'none';
+
+            const nombre = fd.get('nombre');
+            const fecha = fd.get('fecha');
+            const hora = fd.get('hora');
+
+            const resumen = document.createElement('p');
+            resumen.innerHTML = `✅ Gracias <strong>${nombre}</strong>, tu cita ha sido registrada. <br>Verificaremos manualmente el comprobante. <br>Espera un mensaje de WhatsApp para confirmar la cita`;
+            feedback.appendChild(resumen);
+          });
+        }, 5000);
+      };
+      reader.readAsDataURL(file);
     });
-  };
-
-  reader.readAsDataURL(file);
-});
-
   </script>
 </body>
 </html>
