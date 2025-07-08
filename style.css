@@ -726,6 +726,12 @@ body {
   opacity: 0;
   transition: opacity 0.3s ease;
 }
+.dot-microblading         { top: 25%; left: 80%; }
+.dot-pestanas             { top: 53%; left: 63%; }
+.dot-manicura             { top: 26%; left: 58%; }
+.dot-gel-semipermanente   { top: 55%; left: 34%; }
+.dot-depilacion           { top: 35%; left: 45%; }
+.dot-disenio-cejas-henna  { top: 45%; left: 56%; }
 @media (max-width: 768px) {
   /* — Ocultar header de escritorio, mostrar header móvil — */
   .desktop-header {
@@ -886,4 +892,12 @@ body {
   .mobile-menu.open {
     display: none !important;
   }
+}
+@media (max-width: 768px) {
+  .dot-microblading        { top: 30%; left: 90%; }
+  .dot-pestanas            { top: 55%; left: 70%; }
+  .dot-manicura            { top: 30%; left: 60%; }
+  .dot-gel-semipermanente  { top: 66%; left: 25%; }
+  .dot-depilacion          { top: 40%; left: 35%; }
+  .dot-disenio-cejas-henna { top: 48%; left: 60%; }
 }
