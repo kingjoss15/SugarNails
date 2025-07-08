@@ -700,3 +700,190 @@ body {
     text-align: justify;
 
 }
+
+
+
+/* === Header Responsive y Menú Móvil === */
+
+/* Mostrar solo una versión del header según tamaño */
+.desktop-header {
+  display: flex;
+}
+.mobile-header {
+  display: none;
+}
+/* Botón hamburguesa */
+.hamburger {
+  display: none;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 2001;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #333;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+@media (max-width: 768px) {
+  /* — Ocultar header de escritorio, mostrar header móvil — */
+  .desktop-header {
+    display: none !important;
+  }
+  .mobile-header {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    gap: 12px;
+  }
+
+  /* — Botón hamburguesa — */
+  .hamburger {
+    display: block !important;
+    position: static !important;
+    margin-right: auto;
+    font-size: 24px;
+    color: #333;
+    opacity: 1 !important;
+  }
+
+  /* — Logo — */
+  .logo {
+    position: static;
+    transform: none;
+    margin: 0 auto;
+  }
+  .logo-img {
+    height: 36px;
+  }
+
+  /* — Íconos sociales a la derecha — */
+  .nav-icons {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .nav-icons .flag {
+    width: 20px;
+  }
+  .nav-icons .fab {
+    font-size: 18px;
+    color: #333;
+  }
+
+  /* — Menú móvil (oculto por defecto, se muestra con JS) — */
+  .mobile-menu {
+    display: none;
+  }
+.mobile-menu.open {
+  display: block;
+}
+@media (min-width: 769px) {
+  .mobile-menu,
+  .mobile-menu.open {
+    display: none !important;
+  }
+}
+  /* — Ajustes de las tarjetas de dot-popup para que no desborden — */
+  .dot-popup {
+    max-width: 80vw !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    padding: 8px !important;
+    border-radius: 12px !important;
+  }
+  .dot-popup .card {
+    width: 100% !important;
+    height: auto !important;
+  }
+  .dot-popup .card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+/* === Reducir tamaños de fuente en versión móvil === */
+@media (max-width: 768px) {
+  /* Ajuste global de escala */
+  html {
+    font-size: 12px; /* base más pequeña para rems */
+  }
+
+  /* Texto general */
+  body {
+    font-size: 0.75rem; /* ≈9px */
+  }
+
+  /* Navegación */
+  .nav-left a,
+  .nav-icons a,
+  .nav-right a {
+    font-size: 0.75rem; /* ≈9px */
+  }
+
+  /* Hero */
+  .hero-content h1 {
+    font-size: 1.5rem;    /* ≈18px */
+    line-height: 1.2;
+  }
+  .hero-content p {
+    font-size: 0.75rem;   /* ≈9px */
+  }
+  .hero-content .btn {
+    font-size: 0.75rem;   /* ≈9px */
+  }
+
+  /* Dropdowns y menú móvil */
+  .mobile-menu a,
+  .dropdown-content a {
+    font-size: 0.75rem;   /* ≈9px */
+  }
+
+  /* Tarjetas de promoción */
+  .promo-card h5 {
+    font-size: 0.875rem;  /* ≈10.5px */
+  }
+  .promo-card .price {
+    font-size: 0.75rem;   /* ≈9px */
+  }
+
+  /* Colecciones */
+  .collection-card .collection-info em {
+    font-size: 0.75rem;   /* ≈9px */
+  }
+
+  /* Indicadores del slider */
+  .dots .dot {
+    width: 8px;
+    height: 8px;
+  }
+}
+@media (max-width: 768px) {
+  .hero-slider .slide2 .hero-content h1 {
+    font-size: 32px;
+  }
+  .hero-slider .slide2 .hero-content h1 span {
+    font-size: 32px;
+  }
+}
+/* — Header responsive — */
+.desktop-header { display: flex; }
+.mobile-header  { display: none; }
+.mobile-menu    { display: none; }
+
+/* Mostrar menú móvil cuando tenga la clase .open */
+.mobile-menu.open { display: block; }
+
+@media (max-width: 768px) {
+  .desktop-header { display: none !important; }
+  .mobile-header  { display: flex   !important; }
+}
+@media (min-width: 769px) {
+  /* Asegura que al pasar a desktop todo quede cerrado */
+  .mobile-menu,
+  .mobile-menu.open {
+    display: none !important;
+  }
+}
